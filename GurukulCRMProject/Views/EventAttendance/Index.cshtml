@@ -1,0 +1,133 @@
+﻿@model Gurukul.Infrastructure.Models.EventAttendance
+<h1>Attendance tracking</h1>
+<form method="post" action="Index" enctype="multipart/form-data" id="myform">
+    @{
+        int i = 1;
+    }
+
+    <div class="table-responsive">
+        <table id="mytable" class="table table-striped tbl">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <label for="" class="form-label">FirstName</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">LastName</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Email</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Phone Number</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">EventTitle</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Event StartDate</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Event EndDate</label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ev in Model.EventRegistrations)
+                {
+
+                    <tr>
+                        <td>
+                            <span>@i).</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="@ev.EventId" name="selectedEvents" value="@ev.EventId" data-title="@ev.EventTitle" data-firstname="@ev.FirstName" data-lastname="@ev.LastName" data-email="@ev.Email" data-startdate="@ev.EventStartDate" data-enddate="@ev.EventEndDate" data-phonenumber="@ev.PhoneNumber" onchange="registerEvent(this)" />
+                        </td>
+                        <td>
+                            <p>@ev.FirstName</p>
+                        </td>
+                        <td>
+                            <p>@ev.LastName</p>
+                        </td>
+                        <td>
+                            <p>@ev.Email</p>
+                        </td>
+                        <td>
+                            <p>@ev.PhoneNumber</p>
+                        </td>
+                        <td>
+                            <p>@ev.EventTitle</p>
+                        </td>
+                        <td>
+                            <p>@ev.EventStartDate</p>
+                        </td>
+                        <td>
+                            <p>@ev.EventEndDate</p>
+                        </td>
+
+                    </tr>
+                    i = i + 1;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" class="btn btn-primary m-2" id="btn">Present</button>
+</form>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+
+        var eventId, title, firstname, lastname, email, phonenumber, startdate, enddate;
+        var selectedEvents = [];
+        //checkbox data storing.
+        function registerEvent(checkbox) {
+            debugger;
+            var checkboxes = document.getElementsByName('selectedEvents');
+            selectedEvents = [];
+
+            for (var j = 0; j < checkboxes.length; j++) {
+                if (checkboxes[j].checked) {
+                    var event = {
+                        EventId: checkboxes[j].value,
+                        EventTitle: checkboxes[j].getAttribute('data-title'),
+                        FirstName: checkboxes[j].getAttribute('data-firstname'),
+                        LastName: checkboxes[j].getAttribute('data-lastname'),
+                        Email: checkboxes[j].getAttribute('data-email'),
+                        PhoneNumber: checkboxes[j].getAttribute('data-phonenumber'),
+                        EventStartDate: checkboxes[j].getAttribute('data-startdate'),
+                        EventEndDate: checkboxes[j].getAttribute('data-enddate')
+                    };
+                    selectedEvents.push(event);
+                }
+            }
+            console.log(selectedEvents);
+        }
+        //formdata passing to controller
+        $("body").on("click", "#btn", function () {
+            debugger;
+            $.ajax({
+                url: "/EventAttendance/Index",
+                type: "POST",
+                data: JSON.stringify(selectedEvents),
+                contentType: 'application/json',
+                success: function (r) {
+                    window.location.href = window.location.origin + r.url;
+                    alert('successfull.');
+
+                },
+                error: function (xhr, status, error) {
+
+                    alert('Error processing .');
+                }
+            });
+        });
+
+    </script>
+
+
+}

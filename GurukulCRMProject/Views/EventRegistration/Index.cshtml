@@ -1,0 +1,212 @@
+﻿@model Gurukul.Infrastructure.Models.EventRegistration
+<h1>Registration</h1>
+<form method="post" action="Index" enctype="multipart/form-data" id="myform">
+    @{
+        int i = 1;
+    }
+    <div class="row">
+        <div class="col-6">
+            <label for="" class="form-label">First Name:</label>
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+        </div>
+        <div class="col-6">
+            <label for="" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="" class="form-label">Email:</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="Email" required>
+        </div>
+        <div class="col-6">
+            <label for="" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="" class="form-label">Registration Date:</label>
+            <input type="date" class="form-control" asp-for="RegistrationDate" disabled>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="mytable" class="table table-striped tbl">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <label for="" class="form-label">Title</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Description</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Event Type</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Start Date</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">End Date</label>
+                    </th>
+                    <th>
+                        <label for="" class="form-label">Venue</label>
+                    </th>
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ev in Model.events)
+                {
+
+                    <tr>
+                        <td>
+                            <span>@i).</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="@ev.Id" name="selectedEvents" value="@ev.Id" onchange="limitCheckboxSelection(this)" data-title="@ev.Title" data-description="@ev.Description" data-type="@ev.EventType" data-startdate="@ev.StartDate" data-enddate="@ev.EndDate" data-venue="@ev.Venue" />
+                        </td>
+                        <td>
+                            <p>@ev.Title</p>
+                          
+                        </td>
+                        <td>
+                            <p>@ev.Description</p>
+                           
+                        </td>
+                        <td>
+                            <p>@ev.EventType</p>
+                          
+                        </td>
+                        <td>
+                            <p>@ev.StartDate.ToShortDateString()</p>
+                         
+                        </td>
+                        <td>
+                            <p>@ev.EndDate.ToShortDateString()</p>
+                         
+                        </td>
+                        <td>
+                            <p>@ev.Venue</p>
+                          
+                        </td>
+                    </tr>
+                    i = i + 1;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" class="btn btn-primary m-2" id="btn">Register</button>
+</form>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+
+        //limitation of one checkbox selection
+        function limitCheckboxSelection(checkbox) {
+            var checkboxes = document.querySelectorAll('input[name="selectedEvents"]');
+            var checkedCount = 0;
+            checkboxes.forEach(function (cb) {
+                if (cb.checked) {
+                    checkedCount++;
+                }
+            });
+            if (checkedCount > 1) {
+                checkbox.checked = false;
+            }
+        }
+
+        var eventId;
+        var eventType;
+        var title;
+        var description;
+        var startDate;
+        var endDate;
+        var venue;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            debugger;
+            var checkboxes = document.getElementsByName('selectedEvents');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].addEventListener('change', function () {
+                    var selectedEvents = [];
+
+                    for (var j = 0; j < checkboxes.length; j++) {
+                        if (checkboxes[j].checked) {
+
+                            eventId = checkboxes[j].value;
+                            eventType = checkboxes[j].getAttribute('data-type');
+                            title = checkboxes[j].getAttribute('data-title');
+                            description = checkboxes[j].getAttribute('data-description');
+                            startDate = checkboxes[j].getAttribute('data-startdate');
+                            endDate = checkboxes[j].getAttribute('data-enddate');
+                            venue = checkboxes[j].getAttribute('data-venue');
+
+                        }
+                    }
+                });
+            }
+        });
+
+        //formdata passing to controller
+        $("body").on("click", "#btn", function () {
+            debugger;
+
+            var formData = new FormData();
+
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var Email = $("#Email").val();
+            var PhoneNumber = $("#PhoneNumber").val();
+            var RegistrationDate = $("#RegistrationDate").val();
+            var EventId = eventId;
+            var EventType = eventType;
+            var EventTitle = title;
+            var EventDescription = description;
+            var EventStartDate = startDate;
+            var EventEndDate = endDate;
+            var EventVenue = venue;
+
+
+            formData.append('FirstName', FirstName);
+            formData.append('LastName', LastName);
+            formData.append('Email', Email);
+            formData.append('RegistrationDate', RegistrationDate);
+            formData.append('PhoneNumber', PhoneNumber);
+            formData.append('EventId', EventId);
+            formData.append('EventType', EventType);
+            formData.append('EventTitle', EventTitle);
+            formData.append('EventDescription', EventDescription);
+            formData.append('EventStartDate', EventStartDate);
+            formData.append('EventEndDate', EventEndDate);
+            formData.append('EventVenue', EventVenue);
+
+
+            $.ajax({
+                url: "/EventRegistration/Index",
+                type: "POST",
+                data: formData,
+                datatype: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (r) {
+                    window.location.href = window.location.origin + r.url;
+                    alert('registration successfull.');
+
+                },
+                error: function (xhr, status, error) {
+
+                    alert('Error processing .');
+                }
+            });
+        });
+
+    </script>
+}

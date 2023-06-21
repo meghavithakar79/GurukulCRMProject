@@ -1,0 +1,7 @@
+﻿@page
+@model Gurukul.Infrastructure.InitialRoleViewModel
+<select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select" autocomplete="Role" aria-required="true">
+    <option disabled selected>Select Role</option>
+</select>
+<label asp-for="Input.Role"></label>
+<span asp-validation-for="Input.Role" class="text-danger"></span>

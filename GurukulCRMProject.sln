@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33711.374
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GurukulCRMProject", "GurukulCRMProject\GurukulCRMProject.csproj", "{F3A877FE-962F-4B43-BAB6-3AC09B5135D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gurukul.Infrastructure", "Gurukul.Infrastructure\Gurukul.Infrastructure.csproj", "{37954278-9A08-4752-B966-ED6CC9FB1B91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3A877FE-962F-4B43-BAB6-3AC09B5135D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3A877FE-962F-4B43-BAB6-3AC09B5135D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A877FE-962F-4B43-BAB6-3AC09B5135D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3A877FE-962F-4B43-BAB6-3AC09B5135D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37954278-9A08-4752-B966-ED6CC9FB1B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37954278-9A08-4752-B966-ED6CC9FB1B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37954278-9A08-4752-B966-ED6CC9FB1B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37954278-9A08-4752-B966-ED6CC9FB1B91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C06CC416-EE5A-440D-B731-53C11537323B}
+	EndGlobalSection
+EndGlobal

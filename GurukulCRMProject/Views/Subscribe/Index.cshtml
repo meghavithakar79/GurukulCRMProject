@@ -1,0 +1,212 @@
+﻿@model Gurukul.Infrastructure.Models.Subscribe
+<h1>Subscription</h1>
+<h4>List of magazines.</h4>
+<form method="post" action="Index" enctype="multipart/form-data" id="myform">
+    @{
+        int i = 1;
+    }
+   
+    <div class="row">
+        <div class="col-6 p-2">
+            @foreach (var magazine in Model.Magazines)
+            {
+                <div>
+                    <span>@i).</span>
+                    <input type="checkbox" class="checkbox" name="selectedMagazines" value="@magazine.Title" id="@magazine.Id" /> @magazine.Title
+                </div>
+                i = i + 1;
+            }
+        </div>
+
+        <div class="col-6">
+            <label asp-for="Plan">Plan Duration:</label>
+            <select class="form-select" asp-for="Plan">
+                <option value="">Choose...</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quaterly">Quaterly</option>
+                <option value="halfyearly">HalfYearly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+
+            <label for="" class="form-label">Start Date:</label>
+            <input type="date" class="form-control" asp-for="StartDate" readonly>
+
+            <label for="" class="form-label">End Date:</label>
+            <input type="date" class="form-control" name="EndDate" id="EndDate" readonly>
+
+            <label for="" class="form-label">Amount:</label>
+            <input type="text" class="form-control" name="Amount" id="Amount" readonly>
+         
+            <input type="text" name="flag" id="flag" value="true" hidden />
+            <button type="button" class="btn btn-primary m-2" id="btn" style="display: none;">Pay Now</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+
+        //FOR AUTOGENERATE DATE...
+        $(document).ready(function () {
+            var subscriptionPlan = $('#Plan');
+            var endDateField = $('#EndDate');
+            subscriptionPlan.on('change', function () {
+                var selectedPlan = subscriptionPlan.val();
+                var endDate;
+                if (selectedPlan === 'weekly') {
+                    endDate = new Date();
+                    endDate.setDate(endDate.getDate() + 7);
+                } else if (selectedPlan === 'monthly') {
+                    endDate = new Date();
+                    endDate.setMonth(endDate.getMonth() + 1);
+                }
+                else if (selectedPlan === 'quaterly') {
+                    endDate = new Date();
+                    endDate.setMonth(endDate.getMonth() + 3);
+                }
+                else if (selectedPlan === 'halfyearly') {
+                    endDate = new Date();
+                    endDate.setMonth(endDate.getMonth() + 6);
+                }
+                else if (selectedPlan === 'yearly') {
+                    endDate = new Date();
+                    endDate.setFullYear(endDate.getFullYear() + 1);
+                }
+                var formattedEndDate = endDate.toISOString().substring(0, 10);
+
+                endDateField.val(formattedEndDate);
+            });
+        });
+        //FOR AUTOGENERATE AMOUNT...
+        $(document).ready(function () {
+            $('#Plan').change(function () {
+                calculateSubscriptionAmount();
+            });
+            function calculateSubscriptionAmount() {
+                var plan = $('#Plan').val();
+                var totalAmount = 25;
+                if (plan === 'weekly') {
+                    totalAmount *= 1;
+                }
+                else if (plan === 'monthly') {
+                    totalAmount *= 4;
+                }
+                else if (plan === 'quaterly') {
+                    totalAmount *= 12;
+                }
+                else if (plan === 'halfyearly') {
+                    totalAmount *= 24;
+                }
+                else if (plan === 'yearly') {
+                    totalAmount *= 52;
+                }
+
+                $('#Amount').val(totalAmount.toFixed(2));
+            }
+        });
+        //FOR PAY NOW BUTTON HIDE & SHOW...
+
+        $(document).ready(function () {
+            $('#Plan').change(function () {
+                var selectedValue = $(this).val();
+                var submitButton = $('#btn');
+
+                if (selectedValue !== '') {
+                    submitButton.show();
+                } else {
+                    submitButton.hide();
+                }
+            });
+        });
+
+        // var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // checkboxes.forEach(function (checkbox) {
+        //     checkbox.addEventListener('change', function () {
+        //         var checkedCount = 0;
+
+        //         checkboxes.forEach(function (cb) {
+        //             if (cb.checked) {
+        //                 checkedCount++;
+        //             }
+        //         });
+
+        //         console.log("Checkbox " + checkbox.id + ": " + checkedCount + " selected");
+        //     });
+        // });
+
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var selectedIds = [];
+        var selectedTitle = [];
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var checkboxId = checkbox.id;
+                var checkboxTitle = checkbox.value;
+                if (checkbox.checked) {
+                    selectedIds.push(checkboxId);
+                    selectedTitle.push(checkboxTitle);
+                } else {
+                    var index = selectedIds.indexOf(checkboxId);
+                    var index2 = selectedTitle.indexOf(checkboxTitle);
+                    if (index !== -1) {
+                        selectedIds.splice(index, 1);
+                        selectedTitle.splice(index2, 1);
+                    }
+                }
+
+                console.log("Selected IDs: " + selectedIds);
+                console.log("selected title:" + selectedTitle);
+            });
+        });
+
+        // FORMDATA PASSING TO CONTROLLER...
+        $("body").on("click", "#btn", function () {
+            debugger;
+
+            var formData = new FormData();
+         
+            var Plan = $("#Plan").val();
+            var StartDate = $("#StartDate").val();
+            var EndDate = $("#EndDate").val();
+            var Amount = $("#Amount").val();
+            var IsPaymentConfirmed = $("#flag").val();
+            var MagazineId = selectedIds;
+            var MagazineTitle = selectedTitle;
+         
+           
+          
+            formData.append('Plan', Plan);
+            formData.append('StartDate', StartDate);
+            formData.append('EndDate', EndDate);
+            formData.append('Amount', Amount);
+            formData.append('IsPaymentConfirmed', IsPaymentConfirmed);
+            formData.append('MagazineId', MagazineId);
+            formData.append('MagazineTitle', MagazineTitle);
+
+          
+            $.ajax({
+                url: "/Subscribe/Index",
+                type: "POST",
+                data: formData,
+                datatype: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (r) {
+                    window.location.href = window.location.origin + r.url;
+                    alert('Payment successfull.Thank you for subscribing');
+
+                },
+                error: function (xhr, status, error) {
+
+                    alert('Error processing payment.');
+                }
+            });
+        });
+
+    </script>
+}
+
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Gurukul.Infrastructure.Models.Donation>
+<h1>List Of Donations.</h1>
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultOk"]
+    </div>
+}
+<p>
+    <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Donate</a>
+    
+</p>
+<div class="table-responsive">
+    <table id="mytable" class="table table-striped tbl">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonationDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eve in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem =>eve.Id )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>eve.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.DonationDate)
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a asp-action="Edit" asp-route-id="@eve.Id">
+                                <i class="fa-solid fa-pen-to-square" style="width:40px;"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@eve.Id">
+                                <i class="fa-solid fa-trash" style="width:40px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.min.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.min.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#mytable').dataTable({
+                "paging": true,
+                "lengthMenu": [5, 10, 20, 100], "language": {
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next"
+                    }
+                },
+                "paging": {
+                    "previous": '<span class="custom-prev-button">&lt; Prev</span>',
+                    "next": '<span class="custom-next-button">Next &gt;</span>'
+                }
+            });
+        });
+    </script>
+}

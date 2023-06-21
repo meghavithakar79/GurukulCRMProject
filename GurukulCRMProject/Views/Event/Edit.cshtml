@@ -1,0 +1,56 @@
+﻿@model Gurukul.Infrastructure.Models.Event
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<h1>Update Event Details</h1>
+<p>
+    <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-chevron-left"></i> Back To List</a>
+</p>
+<form method="post" action="Edit" class="mt-5" enctype="multipart/form-data">
+    <div>
+        <div>
+            <input type="text" class="form-control" asp-for="Id" hidden>
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">Title:</label>
+                    <input type="text" class="form-control" asp-for="Title" placeholder="Title" required>
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-label">Description:</label>
+                    <textarea class="form-control" id="Description" name="Description" placeholder="Description" required>@Model.Description</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label asp-for="EventType">Event Type:</label>
+                    <select class="form-select" asp-for="EventType">
+                        <option value="">Choose...</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="seminar">Seminar</option>
+                        <option value="culturalprogram">Cultural Program</option>
+                    </select>
+                </div>
+                <div class="col-6 ">
+                    <label for="" class="form-label">Start Date:</label>
+                    <input type="date" class="form-control" asp-for="StartDate" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                    <label for="" class="form-label">End Date:</label>
+                    <input type="date" class="form-control" asp-for="EndDate" required>
+                </div>
+
+                <div class="col-6 ">
+                    <label for="" class="form-label">Venue:</label>
+                    <input type="text" class="form-control" asp-for="Venue" required>
+                </div>
+            </div>
+            <div class="m-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

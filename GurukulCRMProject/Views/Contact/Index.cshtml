@@ -1,0 +1,173 @@
+﻿@model IEnumerable<Gurukul.Infrastructure.Models.Contact>
+@inject IAuthorizationService AuthorizationService
+@using Gurukul.Infrastructure.Constants;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<h1>List of members</h1>
+
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultOk"]
+    </div>
+}
+@* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Contact.Create)).Result.Succeeded) *@
+    <p>
+        <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create New</a>
+    </p>
+
+<div class="table-responsive">
+    <table id="mytable" class="table table-striped display">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DOB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BloodGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZipCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OccupationType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Occupation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EducationLevel)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var con in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.Id )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => con.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => con.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => con.Email )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => con.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => con.BloodGroup )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.OccupationType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.Occupation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>con.EducationLevel)
+                    </td>
+                    <td>
+                        <div class="d-flex ">
+                            <a asp-action="edit" asp-route-id="@con.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil m-3" viewBox="0 0 16 16">
+                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                </svg>
+                            </a> <a asp-action="delete" asp-route-id="@con.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash m-3" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.min.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.min.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#mytable').dataTable({
+                "paging": true,
+                "lengthMenu": [5, 10, 20, 100], "language": {
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next"
+                    }
+                },
+                "paging": {
+                    "previous": '<span class="custom-prev-button">&lt; Prev</span>',
+                    "next": '<span class="custom-next-button">Next &gt;</span>'
+                }
+            });
+        });
+    </script>
+}

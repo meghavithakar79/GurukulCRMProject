@@ -1,0 +1,100 @@
+﻿@model Gurukul.Infrastructure.Models.Donation
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<h1>Update Donation Details</h1>
+<p>
+    <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-chevron-left"></i> Back To List</a>
+</p>
+<form method="post" action="edit" class="mt-5" enctype="multipart/form-data">
+    <div>
+        <div>
+            <input type="text" asp-for="Id" hidden/>
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">Email:</label>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Email" required>
+                </div>
+                <div class="col-6 ">
+                    <label for="" class="form-label">Phone Number:</label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                    <label for="" class="form-label">Address:</label>
+                    <textarea class="form-control" id="Address" name="Address" placeholder="Address" required>@Model.Address</textarea>
+                </div>
+                <div class="col-6 ">
+                    <label asp-for="Branch">Branch:</label>
+                    <select class="form-select" asp-for="Branch">
+                        <option value="">Choose...</option>
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Rajkot">Rajkot</option>
+                        <option value="Junagadh">Junagadh</option>
+                        <option value="Surat">Surat</option>
+                        <option value="Navsari">Navsari</option>
+                        <option value="Una">Una</option>
+                        <option value="Morbi">Morbi</option>
+                        <option value="Bhavnagar">Bhavnagar</option>
+                        <option value="Jamnagar">Jamnagar</option>
+                        <option value="Surendranagar">Surendranagar</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                    <label asp-for="Trust">Trust:</label>
+                    <select class="form-select" asp-for="Trust">
+                        <option value="">Choose...</option>
+                        <option value="GurukulTrust">Gurukul Trust</option>
+                        <option value="HarekrishnaTrust">HareKrishna Trust</option>
+                        <option value="SGVP">SGVP</option>
+                        <option value="GurukulVidhyalay">Swaminarayan Gurukul Vidhyalay</option>
+                        <option value="SGIS">SGIS</option>
+
+
+                    </select>
+                </div>
+                <div class="col-6 ">
+                    <label asp-for="paymentMethod">Payment Method:</label>
+                    <select class="form-select" asp-for="paymentMethod">
+                        <option value="">Choose...</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Card">Card</option>
+                        <option value="Online">Online UPI</option>
+
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="" class="form-label">Amount:</label>
+                        <input type="text" class="form-control" asp-for="Amount" placeholder="Amount" required>
+                    </div>
+                    <div class="col-6 ">
+                        <label for="" class="form-label">Donation Date:</label>
+                        <input type="date" class="form-control" asp-for="DonationDate" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="m-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+

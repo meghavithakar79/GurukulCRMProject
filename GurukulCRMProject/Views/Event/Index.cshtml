@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Gurukul.Infrastructure.Models.Event>
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<h1>List of Events</h1>
+
+@if (TempData["ResultOk"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultOk"]
+    </div>
+}
+<p>
+    <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create New</a>
+    <a asp-action="Index" asp-controller="EventRegistration" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Event Registration</a>
+</p>
+<div class="table-responsive">
+    <table id="mytable" class="table table-striped tbl">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Venue)
+                </th>
+
+                <th></th>
+                <th><label>Attendance</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eve in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem =>eve.Id )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.EventType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>eve.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Venue)
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a asp-action="Edit" asp-route-id="@eve.Id">
+                                <i class="fa-solid fa-pen-to-square" style="width:40px;"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@eve.Id">
+                                <i class="fa-solid fa-trash" style="width:40px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center ">
+                            <a asp-action="Index" asp-controller="EventAttendance" asp-route-id="@eve.Id" data-enddate="@eve.EndDate" class="attendance">
+                                <i class="fa-solid fa-clipboard-user" style="width:40px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap.min.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.js"></script>
+    <script src="~/datatables-1.13.4/js/datatables.bootstrap4.min.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.js"></script>
+    <script src="~/datatables-1.13.4/js/jquery.datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#mytable').dataTable({
+                "paging": true,
+                "lengthMenu": [5, 10, 20, 100], "language": {
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next"
+                    }
+                },
+                "paging": {
+                    "previous": '<span class="custom-prev-button">&lt; Prev</span>',
+                    "next": '<span class="custom-next-button">Next &gt;</span>'
+                }
+            });
+
+            $('.attendance').on("click", function (event) {
+                event.preventDefault();
+
+                var endDate = $(this).data('enddate');
+
+                if (new Date() > new Date(endDate)) {
+                    var path = $(this).attr('href');
+
+                    $.ajax({
+                        url: path,
+                        type: 'GET',
+                        success: function (response) {
+                            window.location.href = path;
+                            alert('Controller method called successfully.');
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error calling controller method');
+                        }
+                    });
+                } else {
+                    alert("End date not finished yet.");
+                }
+            });
+        });
+    </script>
+}

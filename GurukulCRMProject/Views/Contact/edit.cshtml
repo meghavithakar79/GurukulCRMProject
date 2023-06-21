@@ -1,0 +1,154 @@
+﻿@model Gurukul.Infrastructure.Models.Contact;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<h1>Update Contact Details</h1>
+<p>
+    <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-chevron-left"></i> Back To List</a>
+</p>
+<form method="post" action="edit" class="mt-5" enctype="multipart/form-data">
+    <div class="mb-3">
+        
+        <input type="text" class="form-control" asp-for="Id" hidden>
+    </div>
+    <div style="max-width:1000px; margin:0px auto">
+        <div >
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">Date Of Birth:</label>
+                    <input type="date" class="form-control" asp-for="DOB" required>
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-label">Email:</label>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label>Gender:</label>
+                    <div class="mb-3">
+                        <label asp-for="Gender" class="radio-inline">
+                            <input type="radio" id="Gender" name="Gender" value="Male" @(ViewBag.SelectedGender == "Male" ? "checked" : "")> Male
+                        </label>
+                        <label asp-for="Gender" class="radio-inline">
+                            <input type="radio" id="Gender" name="Gender" value="Female" @(ViewBag.SelectedGender == "Female" ? "checked" : "") /> Female
+                        </label>
+                        <label asp-for="Gender" class="radio-inline">
+                            <input type="radio" id="Gender" name="Gender" value="Other" @(ViewBag.SelectedGender == "Other" ? "checked" : "") /> Other
+                        </label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label>Occupation Type:</label>
+                    <div class="mb-3">
+                        <label asp-for="OccupationType" class="radio-inline">
+                            <input type="radio" id="OccupationType" name="OccupationType" value="Employee" @(ViewBag.OccupationType == "Employee" ? "checked" : "") /> Employee
+                        </label>
+                        <label asp-for="OccupationType" class="radio-inline">
+                            <input type="radio" id="OccupationType" name="OccupationType" value="Bussiness" @(ViewBag.OccupationType == "Bussiness" ? "checked" : "") /> Bussiness
+                        </label>
+                        <label asp-for="OccupationType" class="radio-inline">
+                            <input type="radio" id="OccupationType" name="OccupationType" value="Student" @(ViewBag.OccupationType == "Student" ? "checked" : "") /> Student
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group col-md-4">
+                        <label asp-for="Occupation">Occupation:</label>
+                        <select class="form-control" asp-for="Occupation">
+                            <option value="">Choose...</option>
+                            <option value="Engineer">Engineer</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Architect">Architect</option>
+                            <option value="Lawyer">Lawyer</option>
+                            <option value="Accountant">Accountant</option>
+                            <option value="IT professional">It professional</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Teacher">Teacher</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group col-md-4 mb-2">
+                        <label asp-for="EducationLevel">Education Level:</label>
+                        <select class="form-control" asp-for="EducationLevel">
+                            <option value="">Choose...</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Higher">Higher</option>
+                            <option value="Graduate">Graduate</option>
+                            <option value="Under Graduation">Under Graduation</option>
+                            <option value="Post Graduation">Post Graduation</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">BloodGroup:</label>
+                        <input type="text" class="form-control" asp-for="BloodGroup" placeholder="Blood Group" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Address:</label>
+                        <textarea class="form-control" id="Address" name="Address" placeholder="Address" required>@Model.Address</textarea>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">City:</label>
+                        <input type="text" class="form-control" asp-for="City" placeholder="City" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">State:</label>
+                        <input type="text" class="form-control" asp-for="State" placeholder="State" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Zipcode:</label>
+                        <input type="text" class="form-control" asp-for="ZipCode" placeholder="ZipCode" required>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="md-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
