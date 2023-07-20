@@ -57,7 +57,6 @@ namespace GurukulCRMProject.Controllers
             await _context.SaveChangesAsync();
             TempData["ResultOk"] = "Record Added Successfully !";
             return RedirectToAction("Index");
-
         }
         [Authorize(Permissions.Contact.Edit)]
         [HttpGet]

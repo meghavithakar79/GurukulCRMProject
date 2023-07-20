@@ -1,0 +1,120 @@
+﻿@model Gurukul.Infrastructure.Models.Student
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<h1>Update Admission Details</h1>
+<p>
+    <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-chevron-left"></i> Back To List</a>
+</p>
+<form method="post" action="Edit" class="mt-5" enctype="multipart/form-data">
+    <div>
+        <div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name">
+                    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name">
+                    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">Gender:</label>
+                    <select class="form-select" asp-for="Gender">
+                        <option value="">Choose...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.Gender, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-6 ">
+                    <label for="" class="form-label">Date Of Birth:</label>
+                    <input type="date" class="form-control" asp-for="DOB" placeholder="dd-mm-yyyy">
+                    @Html.ValidationMessageFor(x => x.DOB, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="" class="form-label">Email:</label>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-6 ">
+                    <label for="" class="form-label">Phone Number:</label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number">
+                    @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                    <label for="" class="form-label">Address:</label>
+                    <textarea class="form-control" id="Address" name="Address" placeholder="Address" required>@Model.Address</textarea>
+                    @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-6 ">
+                    <label asp-for="School">School:</label>
+                    <select class="form-select" asp-for="School">
+                        <option value="">Choose...</option>
+                        <option value="PreSchool">PreSchool</option>
+                        <option value="Secondary">Secondary</option>
+                        <option value="HigherSecondary">HigherSecondary</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.School, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                    <label asp-for="Board">Board:</label>
+                    <select class="form-select" asp-for="Board">
+                        <option value="">Choose...</option>
+                        <option value="GSEB">GSEB</option>
+                        <option value="ICSE">ICSE</option>
+                        <option value="CBSE">CBSE</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.Board, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-6 ">
+                    <label asp-for="Medium">Medium:</label>
+                    <select class="form-select" asp-for="Medium">
+                        <option value="">Choose...</option>
+                        <option value="English">English</option>
+                        <option value="Gujarati">Gujarati</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.Medium, "", new { @class = "text-danger" })
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="" class="form-label">CGPA:(if not NA)</label>
+                        <input type="text" class="form-control" asp-for="CGPA" placeholder="CGPA">
+                        @Html.ValidationMessageFor(x => x.CGPA, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-6 ">
+                        <label for="" class="form-label">Percentage:(if not NA)</label>
+                        <input type="text" class="form-control" asp-for="Percentage" placeholder="Percentage">
+                        @Html.ValidationMessageFor(x => x.Percentage, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-6 ">
+                        <label for="" class="form-label">Date Of Enrollment:</label>
+                        <input type="text" id="Enrollment_Date" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="m-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    document.getElementById("Enrollment_Date").value = new Date().toLocaleDateString();
+</script>
+
+

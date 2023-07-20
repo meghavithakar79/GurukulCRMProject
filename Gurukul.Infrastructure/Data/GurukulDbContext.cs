@@ -27,7 +27,7 @@ namespace Gurukul.Infrastructure.Data
         public DbSet<EventAttendance> EventAttendances { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Mail> Mails { get; set; }
- 
+        public DbSet<Student> Students { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             

@@ -1,11 +1,11 @@
 ﻿@model Gurukul.Infrastructure.Models.Subscribe
 <h1>Subscription</h1>
 <h4>List of magazines.</h4>
-<form method="post" action="Index" enctype="multipart/form-data" id="myform">
+<form method="post" asp-action="Index" asp-controller="Subscribe" enctype="multipart/form-data" id="myform">
     @{
         int i = 1;
     }
-   
+
     <div class="row">
         <div class="col-6 p-2">
             @foreach (var magazine in Model.Magazines)
@@ -19,6 +19,23 @@
         </div>
 
         <div class="col-6">
+            <label for="" class="form-label">First Name:</label>
+            <input type="text" class="form-control" name="FirstName" id="FirstName">
+            @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+
+            <label for="" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" name="LastName" id="LastName">
+            @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+
+            <label for="" class="form-label">Email:</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="Email" >
+            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+
+            <label for="" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber" placeholder="+XX XXXXX XXXXX">
+            @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+
+
             <label asp-for="Plan">Plan Duration:</label>
             <select class="form-select" asp-for="Plan">
                 <option value="">Choose...</option>
@@ -37,9 +54,13 @@
 
             <label for="" class="form-label">Amount:</label>
             <input type="text" class="form-control" name="Amount" id="Amount" readonly>
-         
+
             <input type="text" name="flag" id="flag" value="true" hidden />
-            <button type="button" class="btn btn-primary m-2" id="btn" style="display: none;">Pay Now</button>
+            <input type="submit" class="btn btn-primary m-2" id="btn" style="display: none;" value="Pay Now"/>
+
+            <input type="hidden" id="selectedMagazineId" name="selectedMagazineId">
+            <input type="hidden" id="selectedMagazineTitle" name="selectedMagazineTitle">
+           @*<input type="submit" class="btn btn-primary m-2" id="btn" value="Register"/>*@
         </div>
     </div>
 </form>
@@ -48,6 +69,105 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
+
+        // $(document).ready(function () {
+        //     $('#btn').click(function () {
+        //         var form = document.getElementById("myform");
+        //         var isChecked = $('.checkbox:checked').length > 0;
+        //         if (isChecked && form.checkValidity()) {
+                    
+        //             var formData = new FormData();
+
+        //             var Plan = $("#Plan").val();
+        //             var StartDate = $("#StartDate").val();
+        //             var EndDate = $("#EndDate").val();
+        //             var Amount = $("#Amount").val();
+        //             var IsPaymentConfirmed = $("#flag").val();
+        //             var MagazineId = selectedIds;
+        //             var MagazineTitle = selectedTitle;
+        //             var FirstName = $("#FirstName").val();
+        //             var LastName = $("#LastName").val();
+        //             var Email = $("#Email").val();
+        //             var PhoneNumber = $("#PhoneNumber").val();
+
+
+
+        //             formData.append('Plan', Plan);
+        //             formData.append('StartDate', StartDate);
+        //             formData.append('EndDate', EndDate);
+        //             formData.append('Amount', Amount);
+        //             formData.append('IsPaymentConfirmed', IsPaymentConfirmed);
+        //             formData.append('MagazineId', MagazineId);
+        //             formData.append('MagazineTitle', MagazineTitle);
+        //             formData.append('FirstName', FirstName);
+        //             formData.append('LastName', LastName);
+        //             formData.append('Email', Email);
+        //             formData.append('PhoneNumber', PhoneNumber);
+
+
+        //             $.ajax({
+        //                 url: "/Subscribe/Index",
+        //                 type: "POST",
+        //                 data: formData,
+        //                 datatype: "JSON",
+        //                 contentType: false,
+        //                 processData: false,
+        //                 success: function (r) {
+        //                     window.location.href = window.location.origin + r.url;
+        //                     alert('Payment successfull.Thank you for subscribing');
+        //                 },
+        //                 error: function (xhr, status, error) {
+        //                     alert('Error processing payment.');
+        //                 }
+        //             });
+                    
+        //         } else {
+        //             form.classList.add('was-validated');
+        //             //form.reportValidity();
+        //             alert('Please check at least one checkbox!');
+        //         }
+        //     });
+        // });
+
+        $('#myform').submit(function (e) {
+            e.preventDefault();
+            var isChecked = $('.checkbox').is(':checked');
+            let form = $("#myform");
+            if (isChecked) {
+                var formData = new FormData();
+
+                var Plan = $("#Plan").val();
+                var StartDate = $("#StartDate").val();
+                var EndDate = $("#EndDate").val();
+                var Amount = $("#Amount").val();
+                var IsPaymentConfirmed = $("#flag").val();
+                var MagazineId = selectedIds;
+                var MagazineTitle = selectedTitle;
+                var FirstName = $("#FirstName").val();
+                var LastName = $("#LastName").val();
+                var Email = $("#Email").val();
+                var PhoneNumber = $("#PhoneNumber").val();
+
+
+
+                formData.append('Plan', Plan);
+                formData.append('StartDate', StartDate);
+                formData.append('EndDate', EndDate);
+                formData.append('Amount', Amount);
+                formData.append('IsPaymentConfirmed', IsPaymentConfirmed);
+                formData.append('MagazineId', MagazineId);
+                formData.append('MagazineTitle', MagazineTitle);
+                formData.append('FirstName', FirstName);
+                formData.append('LastName', LastName);
+                formData.append('Email', Email);
+                formData.append('PhoneNumber', PhoneNumber);
+
+                form[0].submit();
+            } else {
+                alert('Please check at least one checkbox!');
+            }
+        });
+
 
         //FOR AUTOGENERATE DATE...
         $(document).ready(function () {
@@ -122,21 +242,6 @@
             });
         });
 
-        // var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-        // checkboxes.forEach(function (checkbox) {
-        //     checkbox.addEventListener('change', function () {
-        //         var checkedCount = 0;
-
-        //         checkboxes.forEach(function (cb) {
-        //             if (cb.checked) {
-        //                 checkedCount++;
-        //             }
-        //         });
-
-        //         console.log("Checkbox " + checkbox.id + ": " + checkedCount + " selected");
-        //     });
-        // });
 
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
         var selectedIds = [];
@@ -156,55 +261,60 @@
                         selectedTitle.splice(index2, 1);
                     }
                 }
-
                 console.log("Selected IDs: " + selectedIds);
                 console.log("selected title:" + selectedTitle);
+                var selectedEventsInput = document.getElementById('selectedEventsInput');
+                selectedEventsInput.value = JSON.stringify(selectedIds);
+                var selectedEventsInput = document.getElementById('selectedEventsInput');
+                selectedEventsInput.value = JSON.stringify(selectedTitle);
             });
         });
 
-        // FORMDATA PASSING TO CONTROLLER...
-        $("body").on("click", "#btn", function () {
-            debugger;
+                // FORMDATA PASSING TO CONTROLLER...
+                // $("body").on("click", "#btn", function () {
+                //     debugger;
 
-            var formData = new FormData();
-         
-            var Plan = $("#Plan").val();
-            var StartDate = $("#StartDate").val();
-            var EndDate = $("#EndDate").val();
-            var Amount = $("#Amount").val();
-            var IsPaymentConfirmed = $("#flag").val();
-            var MagazineId = selectedIds;
-            var MagazineTitle = selectedTitle;
-         
-           
-          
-            formData.append('Plan', Plan);
-            formData.append('StartDate', StartDate);
-            formData.append('EndDate', EndDate);
-            formData.append('Amount', Amount);
-            formData.append('IsPaymentConfirmed', IsPaymentConfirmed);
-            formData.append('MagazineId', MagazineId);
-            formData.append('MagazineTitle', MagazineTitle);
+                //     var formData = new FormData();
 
-          
-            $.ajax({
-                url: "/Subscribe/Index",
-                type: "POST",
-                data: formData,
-                datatype: "JSON",
-                contentType: false,
-                processData: false,
-                success: function (r) {
-                    window.location.href = window.location.origin + r.url;
-                    alert('Payment successfull.Thank you for subscribing');
+                //     var Plan = $("#Plan").val();
+                //     var StartDate = $("#StartDate").val();
+                //     var EndDate = $("#EndDate").val();
+                //     var Amount = $("#Amount").val();
+                //     var IsPaymentConfirmed = $("#flag").val();
+                //     var MagazineId = selectedIds;
+                //     var MagazineTitle = selectedTitle;
 
-                },
-                error: function (xhr, status, error) {
 
-                    alert('Error processing payment.');
-                }
-            });
-        });
+
+                //     formData.append('Plan', Plan);
+                //     formData.append('StartDate', StartDate);
+                //     formData.append('EndDate', EndDate);
+                //     formData.append('Amount', Amount);
+                //     formData.append('IsPaymentConfirmed', IsPaymentConfirmed);
+                //     formData.append('MagazineId', MagazineId);
+                //     formData.append('MagazineTitle', MagazineTitle);
+
+
+                //     $.ajax({
+                //         url: "/Subscribe/Index",
+                //         type: "POST",
+                //         data: formData,
+                //         datatype: "JSON",
+                //         contentType: false,
+                //         processData: false,
+                //         success: function (r) {
+                //             window.location.href = window.location.origin + r.url;
+                //             alert('Payment successfull.Thank you for subscribing');
+
+                //         },
+                //         error: function (xhr, status, error) {
+
+                //             alert('Error processing payment.');
+                //         }
+                //     });
+                // });
+
+
 
     </script>
 }

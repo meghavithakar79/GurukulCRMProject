@@ -19,11 +19,13 @@
             <div class="row">
                 <div class="col-6">
                     <label for="" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name">
+                    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name">
+                    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -31,11 +33,13 @@
             <div class="row">
                 <div class="col-6">
                     <label for="" class="form-label">Date Of Birth:</label>
-                    <input type="date" class="form-control" asp-for="DOB" required>
+                    <input type="date" class="form-control" asp-for="DOB">
+                    @Html.ValidationMessageFor(x => x.DOB, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Email:</label>
-                    <input type="text" class="form-control" asp-for="Email" placeholder="Email" required>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row mt-2">
@@ -52,6 +56,7 @@
                             <input type="radio" id="Gender" name="Gender" value="Other" @(ViewBag.SelectedGender == "Other" ? "checked" : "") /> Other
                         </label>
                     </div>
+                    @Html.ValidationMessageFor(x => x.Gender, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6">
                     <label>Occupation Type:</label>
@@ -66,6 +71,7 @@
                             <input type="radio" id="OccupationType" name="OccupationType" value="Student" @(ViewBag.OccupationType == "Student" ? "checked" : "") /> Student
                         </label>
                     </div>
+                    @Html.ValidationMessageFor(x => x.OccupationType, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
@@ -84,6 +90,7 @@
                             <option value="Teacher">Teacher</option>
                         </select>
                     </div>
+                    @Html.ValidationMessageFor(x => x.Occupation, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6">
                     <div class="form-group col-md-4 mb-2">
@@ -98,19 +105,22 @@
                             <option value="Post Graduation">Post Graduation</option>
                         </select>
                     </div>
+                    @Html.ValidationMessageFor(x => x.EducationLevel, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="" class="form-label">BloodGroup:</label>
-                        <input type="text" class="form-control" asp-for="BloodGroup" placeholder="Blood Group" required>
+                        <input type="text" class="form-control" asp-for="BloodGroup" placeholder="Blood Group">
+                        @Html.ValidationMessageFor(x => x.BloodGroup, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="" class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" required>
+                        <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="+XX XXXXX XXXXX">
+                        @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -119,12 +129,14 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Address:</label>
                         <textarea class="form-control" id="Address" name="Address" placeholder="Address" required>@Model.Address</textarea>
+                        @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="" class="form-label">City:</label>
-                        <input type="text" class="form-control" asp-for="City" placeholder="City" required>
+                        <input type="text" class="form-control" asp-for="City" placeholder="City">
+                        @Html.ValidationMessageFor(x => x.City, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -132,13 +144,15 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="" class="form-label">State:</label>
-                        <input type="text" class="form-control" asp-for="State" placeholder="State" required>
+                        <input type="text" class="form-control" asp-for="State" placeholder="State">
+                        @Html.ValidationMessageFor(x => x.State, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="" class="form-label">Zipcode:</label>
-                        <input type="text" class="form-control" asp-for="ZipCode" placeholder="ZipCode" required>
+                        <input type="text" class="form-control" asp-for="ZipCode" placeholder="ZipCode">
+                        @Html.ValidationMessageFor(x => x.ZipCode, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

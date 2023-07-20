@@ -1,6 +1,6 @@
 ﻿@model Gurukul.Infrastructure.Models.Mail
 <h1>Newsletter</h1>
-<form method="post" action="SendEmail">
+<form method="post" action="SendEmail" id="myform">
     @{
         int i = 1;
     }
@@ -12,7 +12,7 @@
             {
                 <div>
                     <span>@i).</span>
-                    <input type="checkbox" class="checkbox" name="selectedUsers" value="@con.Email" id="@con.Id" /> @con.FirstName @con.LastName
+                    <input type="checkbox" class="checkbox" name="selectedUsers" value="@con.Email" id="@con.Id" required /> @con.FirstName @con.LastName
                 </div>
                 i = i + 1;
             }
@@ -20,12 +20,29 @@
 
         <div class="col-6 p-4">
             <h5>Compose Email</h5>
-
-            <label for="subject">Subject:</label>
-            <input type="text" class="form-control" asp-for="Title" required />
-            <label for="body">Body:</label>
-            <textarea class="form-control" asp-for="Body" required></textarea>
+            <div>
+                <label for="subject">Subject:</label>
+                <input type="text" class="form-control" asp-for="Title" />
+                @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                <label for="body">Body:</label>
+                <textarea class="form-control" asp-for="Body" required></textarea>
+                @Html.ValidationMessageFor(x => x.Body, "", new { @class = "text-danger" })
+            </div>
             <input type="submit" value="Send Email" class="btn btn-primary m-2" id="btn" />
         </div>
     </div>
 </form>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $('#myform').submit(function () {
+            if (!$('#myform input[type="checkbox"]').is(':checked')) {
+                alert("Please check at least one.");
+                return false;
+            }
+        });
+    </script>
+}

@@ -16,27 +16,32 @@
             <div class="row">
                 <div class="col-6">
                     <label for="" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" >
+                    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" >
+                    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <label for="" class="form-label">Email:</label>
-                    <input type="email" class="form-control" asp-for="Email" placeholder="Email" required>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Email" >
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6 ">
                     <label for="" class="form-label">Phone Number:</label>
-                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" required>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number" >
+                    @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 ">
                     <label for="" class="form-label">Address:</label>
                     <textarea class="form-control" id="Address" name="Address" placeholder="Address" required>@Model.Address</textarea>
+                    @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6 ">
                     <label asp-for="Branch">Branch:</label>
@@ -53,6 +58,7 @@
                         <option value="Jamnagar">Jamnagar</option>
                         <option value="Surendranagar">Surendranagar</option>
                     </select>
+                    @Html.ValidationMessageFor(x => x.Branch, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
@@ -65,9 +71,8 @@
                         <option value="SGVP">SGVP</option>
                         <option value="GurukulVidhyalay">Swaminarayan Gurukul Vidhyalay</option>
                         <option value="SGIS">SGIS</option>
-
-
                     </select>
+                    @Html.ValidationMessageFor(x => x.Trust, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-6 ">
                     <label asp-for="paymentMethod">Payment Method:</label>
@@ -76,13 +81,14 @@
                         <option value="Cash">Cash</option>
                         <option value="Card">Card</option>
                         <option value="Online">Online UPI</option>
-
                     </select>
+                    @Html.ValidationMessageFor(x => x.paymentMethod, "", new { @class = "text-danger" })
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label for="" class="form-label">Amount:</label>
-                        <input type="text" class="form-control" asp-for="Amount" placeholder="Amount" required>
+                        <input type="text" class="form-control" asp-for="Amount" placeholder="Amount" >
+                        @Html.ValidationMessageFor(x => x.Amount, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-6 ">
                         <label for="" class="form-label">Donation Date:</label>

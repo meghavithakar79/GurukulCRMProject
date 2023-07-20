@@ -1,14 +1,9 @@
-﻿@model IEnumerable<Gurukul.Infrastructure.Models.Event>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<Gurukul.Infrastructure.Models.Student>
+<h1>List Of Students.</h1>
 <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<h1>List of Events</h1>
-
 @if (TempData["ResultOk"] != null)
 {
     <div class="alert alert-info" role="alert">
@@ -16,8 +11,8 @@
     </div>
 }
 <p>
-    <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create New</a>
-    <a asp-action="Index" asp-controller="EventRegistration" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Event Registration</a>
+    <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Admission Form</a>
+
 </p>
 <div class="table-responsive">
     <table id="mytable" class="table table-striped tbl">
@@ -27,25 +22,45 @@
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EventType)
+                    @Html.DisplayNameFor(model => model.FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.Gender)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
+                    @Html.DisplayNameFor(model => model.DOB)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
+                    @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Venue)
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.School)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Board)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Medium)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Enrollment_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CGPA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Percentage)
                 </th>
                 <th></th>
-                <th><label>Attendance</label></th>
             </tr>
         </thead>
         <tbody>
@@ -56,38 +71,52 @@
                         @Html.DisplayFor(modelItem =>eve.Id )
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => eve.EventType)
+                        @Html.DisplayFor(modelItem => eve.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem =>eve.Title)
+                        @Html.DisplayFor(modelItem =>eve.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => eve.Description)
+                        @Html.DisplayFor(modelItem => eve.Gender)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => eve.StartDate)
+                        @Html.DisplayFor(modelItem => eve.DOB)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => eve.EndDate)
+                        @Html.DisplayFor(modelItem => eve.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => eve.Venue)
+                        @Html.DisplayFor(modelItem => eve.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.School)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Board)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Medium)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Enrollment_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.CGPA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => eve.Percentage)
                     </td>
                     <td>
                         <div class="d-flex justify-content-center">
                             <a asp-action="Edit" asp-route-id="@eve.Id">
                                 <i class="fa-solid fa-pen-to-square" style="width:40px;"></i>
                             </a>
-                            <a asp-action="Delete" asp-route-id="@eve.Id">
+                            @* <a asp-action="Delete" asp-route-id="@eve.Id">
                                 <i class="fa-solid fa-trash" style="width:40px;"></i>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center ">
-                            <a asp-action="Index" asp-controller="EventAttendance" asp-route-id="@eve.Id" data-enddate="@eve.EndDate" class="attendance">
-                                <i class="fa-solid fa-clipboard-user" style="width:40px;"></i>
-                            </a>
+                            </a> *@
                         </div>
                     </td>
                 </tr>
@@ -116,31 +145,6 @@
                 "paging": {
                     "previous": '<span class="custom-prev-button">&lt; Prev</span>',
                     "next": '<span class="custom-next-button">Next &gt;</span>'
-                }
-            });
-
-            //Attendance...
-            $('.attendance').on("click", function (event) {
-                event.preventDefault();
-
-                var endDate = $(this).data('enddate');
-
-                if (new Date() > new Date(endDate)) {
-                    var path = $(this).attr('href');
-
-                    $.ajax({
-                        url: path,
-                        type: 'GET',
-                        success: function (response) {
-                            window.location.href = path;
-                            alert('Controller method called successfully.');
-                        },
-                        error: function (xhr, status, error) {
-                            alert('Error calling controller method');
-                        }
-                    });
-                } else {
-                    alert("End date not finished yet.");
                 }
             });
         });

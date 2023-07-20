@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.7.0" />
+    <PackageReference Include="jQuery.Validation" Version="1.19.5" />
     <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.1.1" />

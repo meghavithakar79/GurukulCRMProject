@@ -1,5 +1,11 @@
 ﻿@model Gurukul.Infrastructure.Models.EventAttendance
 <h1>Attendance tracking</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<p>
+    <a asp-action="Index" class="btn btn-primary" asp-controller="Event"><i class="fa-solid fa-chevron-left"></i> Back To List</a>
+</p>
+
 <form method="post" action="Index" enctype="multipart/form-data" id="myform">
     @{
         int i = 1;

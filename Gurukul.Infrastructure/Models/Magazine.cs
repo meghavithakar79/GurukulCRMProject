@@ -11,11 +11,17 @@ namespace Gurukul.Infrastructure.Models
     public class Magazine
     {
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string MagazineType { get; set; }
+        [Required]
         public string Author { get; set; }
+        [Required]
         public string PublisherName { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         public DateTime PublicationDate { get; set; }
         public bool IsDelete { get; set; }

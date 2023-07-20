@@ -17,9 +17,9 @@
         @TempData["ResultOk"]
     </div>
 }
-@* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Contact.Create)).Result.Succeeded) *@
+
     <p>
-        <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create New</a>
+        <a asp-action="create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New Member</a>
     </p>
 
 <div class="table-responsive">

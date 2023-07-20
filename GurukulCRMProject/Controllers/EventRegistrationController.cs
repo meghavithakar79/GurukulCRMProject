@@ -3,6 +3,7 @@ using GurukulCRMProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace GurukulCRMProject.Controllers
 {
@@ -31,26 +32,45 @@ namespace GurukulCRMProject.Controllers
             return events;
         }
         [HttpPost]
-        public JsonResult Index(EventRegistration model)
+        public IActionResult Index(IFormCollection form)
         {
-            var eventreg = new EventRegistration
+            string firstName = form["FirstName"];
+            string lastName = form["LastName"];
+            string email = form["Email"];
+            string phoneNumber = form["PhoneNumber"];
+            string selectedEventsJson = form["selectedEventsInput"];
+
+            List<EventRegistration> selectedEvents = JsonSerializer.Deserialize<List<EventRegistration>>(selectedEventsJson);
+
+            foreach (var selectedEvent in selectedEvents)
             {
-                Email = model.Email,
-                EventDescription = model.EventDescription,
-                EventId = model.EventId,
-                EventEndDate = Convert.ToDateTime(model.EventEndDate).ToShortDateString(),
-                EventStartDate = Convert.ToDateTime(model.EventStartDate).ToShortDateString(),
-                EventTitle = model.EventTitle,
-                EventType = model.EventType,
-                EventVenue = model.EventVenue,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                PhoneNumber = model.PhoneNumber,
-                RegistrationDate = model.RegistrationDate
-            };
-            _context.EventRegistrations.Add(eventreg);
-            _context.SaveChanges();
-            return Json(new { Url = "/EventRegistration/RegisterConfirm" });
+                string eventId = selectedEvent.EventId;
+                string eventType = selectedEvent.EventType;
+                string title = selectedEvent.EventTitle;
+                string description = selectedEvent.EventDescription;
+                string startDate = selectedEvent.EventStartDate;
+                string endDate = selectedEvent.EventEndDate;
+                string venue = selectedEvent.EventVenue;
+
+                var eventreg = new EventRegistration
+                {
+                    Email = email,
+                    EventDescription = description,
+                    EventId = eventId,
+                    EventEndDate = endDate,
+                    EventStartDate = startDate,
+                    EventTitle = title,
+                    EventType = eventType,
+                    EventVenue = venue,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PhoneNumber = phoneNumber,
+                    RegistrationDate = DateTime.Now
+                };
+                _context.EventRegistrations.Add(eventreg);
+                _context.SaveChanges();
+            }
+            return View(nameof(RegisterConfirm));
         }
         public IActionResult RegisterConfirm()
         {

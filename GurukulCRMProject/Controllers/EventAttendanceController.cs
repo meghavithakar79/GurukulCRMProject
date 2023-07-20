@@ -34,7 +34,6 @@ namespace GurukulCRMProject.Controllers
         }
         private List<EventRegistration> GetUserList(int id)
         {
-            
             EventRegistration eventRegistration = new EventRegistration();
             var userlist = _context.EventRegistrations.Where(x=>Convert.ToInt32(x.EventId)==id).ToList();
             return userlist;
